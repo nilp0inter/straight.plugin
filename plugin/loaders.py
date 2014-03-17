@@ -6,7 +6,7 @@ import os
 from importlib import import_module
 from imp import find_module
 
-from straight.plugin.manager import PluginManager
+from .manager import PluginManager
 
 
 class Loader(object):
@@ -49,7 +49,7 @@ class Loader(object):
 
 class ModuleLoader(Loader):
     """Performs the work of locating and loading straight plugins.
-    
+
     This looks for plugins in every location in the import path.
     """
 
@@ -89,7 +89,7 @@ class ModuleLoader(Loader):
                         base, ext = os.path.splitext(possible)
                         if base == '__init__' or ext != '.py':
                             continue
-                    
+
                     if base not in already_seen:
                         already_seen.add(base)
                         yield os.path.join(namespace, possible)
@@ -122,7 +122,7 @@ class ModuleLoader(Loader):
 class ObjectLoader(Loader):
     """Loads classes or objects out of modules in a namespace, based on a
     provided criteria.
-   
+
     The load() method returns all objects exported by the module.
     """
 
@@ -137,7 +137,7 @@ class ObjectLoader(Loader):
             for attr_name in dir(module):
                 if not attr_name.startswith('_'):
                     objects.append(getattr(module, attr_name))
-        
+
         self._cache = objects
         return objects
 
